@@ -34,7 +34,7 @@ import org.apache.flink.util.Collector;
  *
  * <p>The goal for this exercise is to emit START events for taxi rides that have not been matched
  * by an END event during the first 2 hours of the ride.
- *
+ * https://nightlies.apache.org/flink/flink-docs-release-1.13/docs/learn-flink/event_driven/
  */
 public class LongRidesSolution extends ExerciseBase {
 

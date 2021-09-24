@@ -31,7 +31,7 @@ import org.apache.flink.training.exercises.common.utils.GeoUtils;
  *
  * <p>The task of the exercise is to filter a data stream of taxi ride records to keep only rides that
  * start and end within New York City. The resulting stream should be printed.
- *
+ * https://nightlies.apache.org/flink/flink-docs-release-1.13/docs/learn-flink/datastream_api/
  */
 public class RideCleansingSolution extends ExerciseBase {
 

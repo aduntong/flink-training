@@ -35,7 +35,7 @@ import org.apache.flink.util.Collector;
  *
  * <p>The task of the exercise is to first calculate the total tips collected by each driver, hour by hour, and
  * then from that stream, find the highest tip total in each hour.
- *
+ * https://nightlies.apache.org/flink/flink-docs-release-1.13/docs/learn-flink/streaming_analytics/
  */
 public class HourlyTipsSolution extends ExerciseBase {
 

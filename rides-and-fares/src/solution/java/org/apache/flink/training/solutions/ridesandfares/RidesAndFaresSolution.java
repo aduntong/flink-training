@@ -37,7 +37,7 @@ import org.apache.flink.util.Collector;
  * Java reference implementation for the "Stateful Enrichment" exercise of the Flink training in the docs.
  *
  * <p>The goal for this exercise is to enrich TaxiRides with fare information.
- *
+ * https://nightlies.apache.org/flink/flink-docs-release-1.13/docs/learn-flink/etl/
  */
 public class RidesAndFaresSolution extends ExerciseBase {
 
@@ -73,6 +73,7 @@ public class RidesAndFaresSolution extends ExerciseBase {
 				.keyBy((TaxiFare fare) -> fare.rideId);
 
 		// Set a UID on the stateful flatmap operator so we can read its state using the State Processor API.
+		// 使用 connect 方法给 ride 和 fare 进行配对，配对成功后再输出
 		DataStream<Tuple2<TaxiRide, TaxiFare>> enrichedRides = rides
 				.connect(fares)
 				.flatMap(new EnrichmentFunction())
