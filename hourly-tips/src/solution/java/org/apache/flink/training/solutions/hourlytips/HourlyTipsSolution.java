@@ -36,6 +36,8 @@ import org.apache.flink.util.Collector;
  * <p>The task of the exercise is to first calculate the total tips collected by each driver, hour by hour, and
  * then from that stream, find the highest tip total in each hour.
  * https://nightlies.apache.org/flink/flink-docs-release-1.13/docs/learn-flink/streaming_analytics/
+ *
+ * 对每个 taxi 每个小时进行加总，
  */
 public class HourlyTipsSolution extends ExerciseBase {
 
@@ -52,13 +54,15 @@ public class HourlyTipsSolution extends ExerciseBase {
 
 		// start the data generator
 		DataStream<TaxiFare> fares = env.addSource(fareSourceOrTest(new TaxiFareGenerator()));
-
+		fares.print();
 		// compute tips per hour for each driver
 		DataStream<Tuple3<Long, Long, Float>> hourlyTips = fares
 				.keyBy((TaxiFare fare) -> fare.driverId)
 				.window(TumblingEventTimeWindows.of(Time.hours(1)))
 				.process(new AddTips());
 
+		// window all
+		// 在窗口时间范围内，在所有的 taxi 之间比较
 		DataStream<Tuple3<Long, Long, Float>> hourlyMax = hourlyTips
 				.windowAll(TumblingEventTimeWindows.of(Time.hours(1)))
 				.maxBy(2);
@@ -78,6 +82,7 @@ public class HourlyTipsSolution extends ExerciseBase {
 
 	/*
 	 * Wraps the pre-aggregated result into a tuple along with the window's timestamp and key.
+	 * 累加窗口周期的每 taxi 的 tip
 	 */
 	public static class AddTips extends ProcessWindowFunction<
 			TaxiFare, Tuple3<Long, Long, Float>, Long, TimeWindow> {
@@ -88,6 +93,7 @@ public class HourlyTipsSolution extends ExerciseBase {
 			for (TaxiFare f : fares) {
 				sumOfTips += f.tip;
 			}
+			System.out.println("AddTips:" + key + "," + context.window().getEnd() + "," + sumOfTips);
 			out.collect(Tuple3.of(context.window().getEnd(), key, sumOfTips));
 		}
 	}
