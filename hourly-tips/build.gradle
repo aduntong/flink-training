@@ -1,1 +1,7 @@
 mainClassName = 'org.apache.flink.training.exercises.hourlytips.HourlyTipsExercise'
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+

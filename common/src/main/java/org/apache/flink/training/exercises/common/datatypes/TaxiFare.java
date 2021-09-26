@@ -21,6 +21,7 @@ package org.apache.flink.training.exercises.common.datatypes;
 import org.apache.flink.training.exercises.common.utils.DataGenerator;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 
 /**
@@ -58,15 +59,15 @@ public class TaxiFare implements Serializable {
 		this.driverId = g.driverId();
 		this.startTime = g.startTime();
 		this.paymentType = g.paymentType();
-		this.tip = g.tip();
-		this.tolls = g.tolls();
-		this.totalFare = g.totalFare();
+		this.tip = g.tipBigDecimal();
+		this.tolls = g.tollsBigDecimal();
+		this.totalFare = g.totalFareBigDecimal();
 	}
 
 	/**
 	 * Creates a TaxiFare with the given parameters.
 	 */
-	public TaxiFare(long rideId, long taxiId, long driverId, Instant startTime, String paymentType, float tip, float tolls, float totalFare) {
+	public TaxiFare(long rideId, long taxiId, long driverId, Instant startTime, String paymentType, BigDecimal tip, BigDecimal tolls, BigDecimal totalFare) {
 		this.rideId = rideId;
 		this.taxiId = taxiId;
 		this.driverId = driverId;
@@ -82,9 +83,9 @@ public class TaxiFare implements Serializable {
 	public long driverId;
 	public Instant startTime;
 	public String paymentType;
-	public float tip;
-	public float tolls;
-	public float totalFare;
+	public BigDecimal tip;
+	public BigDecimal tolls;
+	public BigDecimal totalFare;
 
 	@Override
 	public String toString() {
